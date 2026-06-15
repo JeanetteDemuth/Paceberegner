@@ -3,121 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jeanettes Swim Coach v5</title>
+<title>SwimBetter V7</title>
 <style>
-:root{--blue:#1f4ed8;--teal:#0f766e;--card:#fff;--soft:#f8fafc;--line:#dbe3ef;--dark:#14213d;--muted:#64748b}
-*{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(180deg,#e8f1ff,#f8fafc);color:var(--dark)}
-.wrap{max-width:980px;margin:0 auto;padding:12px 10px 80px}
-.hero{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:28px;padding:24px 20px;margin:8px 0 14px;box-shadow:0 10px 26px rgba(31,78,216,.24)}
-.hero h1{margin:0 0 8px;font-size:31px}.hero p{margin:0;font-size:16px;line-height:1.4}
-.tabs{position:sticky;top:0;z-index:10;background:rgba(248,250,252,.96);display:flex;gap:8px;overflow-x:auto;padding:10px 0}
-.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:11px 14px;font-weight:800;color:var(--dark);white-space:nowrap}.tab.active{background:var(--blue);color:#fff}
-.page{display:none}.page.active{display:block}
-.card{background:var(--card);border-radius:24px;padding:20px;margin:14px 0;box-shadow:0 6px 18px rgba(15,23,42,.08)}
-h2{font-size:23px;margin:0 0 14px}h3{font-size:19px;margin:18px 0 10px}
-label{display:block;margin-top:12px;font-size:16px;font-weight:800}
-input,select,textarea{width:100%;padding:14px;margin-top:7px;border:1.5px solid var(--line);border-radius:14px;font-size:19px;background:white}
-textarea{min-height:90px}
-button{width:100%;margin-top:16px;padding:15px;border:0;border-radius:15px;background:var(--blue);color:white;font-size:18px;font-weight:900}
-.hint,.small{font-size:14px;color:var(--muted);line-height:1.4}
+:root{--blue:#1f4ed8;--teal:#0f766e;--navy:#0f172a;--card:#fff;--soft:#f8fafc;--line:#dbe3ef;--dark:#14213d;--muted:#64748b;--ice:#eefaff}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(180deg,#dff3ff,#eef5ff 40%,#f8fafc);color:var(--dark)}
+.wrap{max-width:1040px;margin:0 auto;padding:12px 10px 90px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#1f4ed8,#0f766e 60%,#14b8a6);color:#fff;border-radius:34px;padding:30px 22px;margin:8px 0 16px;box-shadow:0 16px 36px rgba(31,78,216,.28)}
+.hero:before{content:"";position:absolute;right:-70px;top:-70px;width:210px;height:210px;border-radius:50%;background:rgba(255,255,255,.14)}
+.hero:after{content:"";position:absolute;left:-55px;bottom:-70px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.10)}
+.hero>*{position:relative;z-index:1}.logo{display:inline-flex;background:rgba(255,255,255,.16);padding:8px 12px;border-radius:999px;font-weight:900;font-size:14px;margin-bottom:16px}
+h1{margin:0;font-size:46px;line-height:.98;letter-spacing:-1.4px}.tagline{font-size:20px;line-height:1.35;margin:14px 0 18px;max-width:720px}.byline{display:inline-block;background:rgba(255,255,255,.18);padding:10px 13px;border-radius:16px;font-weight:800}
+.heroGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}.heroTile{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:13px}.heroTile strong{display:block;font-size:16px;margin-bottom:3px}.heroTile span{font-size:13px;opacity:.92}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(248,250,252,.96);display:flex;gap:8px;overflow-x:auto;padding:10px 0}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:11px 14px;font-weight:850;color:var(--dark);white-space:nowrap}.tab.active{background:var(--blue);color:#fff}
+.page{display:none}.page.active{display:block}.card{background:var(--card);border-radius:24px;padding:20px;margin:14px 0;box-shadow:0 6px 18px rgba(15,23,42,.08)}
+h2{font-size:23px;margin:0 0 14px}h3{font-size:19px;margin:18px 0 10px}p{line-height:1.5}
+label{display:block;margin-top:12px;font-size:16px;font-weight:800}input,select,textarea{width:100%;padding:14px;margin-top:7px;border:1.5px solid var(--line);border-radius:14px;font-size:19px;background:white}textarea{min-height:90px}
+button{width:100%;margin-top:16px;padding:15px;border:0;border-radius:15px;background:var(--blue);color:white;font-size:18px;font-weight:900}.secondary{background:#0f172a}.hint,.small{font-size:14px;color:var(--muted);line-height:1.4}
 .result{margin-top:15px;padding:16px;border-radius:18px;background:#edf2ff;color:var(--teal);font-size:21px;font-weight:900;text-align:center;line-height:1.3}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.tile{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}
-.tile strong{display:block;color:var(--muted);font-size:14px;margin-bottom:5px}.tile span{font-size:20px;font-weight:900}
-.checkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}
-.check{background:var(--soft);border:1px solid var(--line);border-radius:15px;padding:12px;font-weight:750;display:flex;gap:8px;align-items:center}.check input{width:auto;margin:0}
-.badge{display:inline-block;border-radius:999px;padding:7px 10px;background:#e0f2fe;color:#075985;font-weight:800;font-size:13px;margin:3px}
-.program{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:12px;line-height:1.5}
-.day{background:white;border-left:6px solid var(--blue);border-radius:14px;padding:13px;margin:10px 0;box-shadow:0 2px 8px rgba(15,23,42,.05)}
-.day strong{display:block;font-size:18px;margin-bottom:6px}
-.note{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:13px;margin-top:12px;line-height:1.45}
-.libcard{border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px;margin:12px 0}
-.exercise{display:inline-block;margin:4px;padding:9px 11px;border-radius:999px;background:#e0f2fe;color:#075985;font-weight:850;border:0;width:auto;font-size:14px}
-.modal{display:none;position:fixed;z-index:99;left:0;right:0;top:0;bottom:0;background:rgba(15,23,42,.45);padding:20px}
-.modalbox{background:white;max-width:720px;margin:40px auto;border-radius:24px;padding:20px;max-height:85vh;overflow:auto}.close{background:#0f172a;margin-top:12px}
-.tablewrap{overflow-x:auto;margin-top:14px}table{width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden}
-th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left;font-size:15px}th{background:#edf2ff;color:#1e3a8a}
-@media(min-width:740px){.grid{grid-template-columns:repeat(4,1fr)}.checkgrid{grid-template-columns:repeat(3,1fr)}}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.tile{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.tile strong{display:block;color:var(--muted);font-size:14px;margin-bottom:5px}.tile span{font-size:20px;font-weight:900}
+.checkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}.check{background:var(--soft);border:1px solid var(--line);border-radius:15px;padding:12px;font-weight:750;display:flex;gap:8px;align-items:center}.check input{width:auto;margin:0}
+.badge{display:inline-block;border-radius:999px;padding:7px 10px;background:#e0f2fe;color:#075985;font-weight:800;font-size:13px;margin:3px}.note{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:13px;margin-top:12px;line-height:1.45}
+.program{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:12px}.week{background:#fff;border-radius:20px;padding:15px;margin:14px 0;border:1px solid var(--line)}.week h3{margin-top:0}.day{background:white;border-left:6px solid var(--blue);border-radius:14px;padding:13px;margin:10px 0;box-shadow:0 2px 8px rgba(15,23,42,.05)}.day strong{display:block;font-size:18px;margin-bottom:6px}
+.libcard{border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px;margin:12px 0}.exercise{display:inline-block;margin:4px;padding:9px 11px;border-radius:999px;background:#e0f2fe;color:#075985;font-weight:850;border:0;width:auto;font-size:14px}
+.modal{display:none;position:fixed;z-index:99;left:0;right:0;top:0;bottom:0;background:rgba(15,23,42,.45);padding:20px}.modalbox{background:white;max-width:720px;margin:40px auto;border-radius:24px;padding:20px;max-height:85vh;overflow:auto}.close{background:#0f172a;margin-top:12px}
+.tablewrap{overflow-x:auto;margin-top:14px}table{width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left;font-size:15px}th{background:#edf2ff;color:#1e3a8a}
+.icebox{background:linear-gradient(135deg,#eefaff,#ffffff);border:1px solid #bae6fd;border-radius:22px;padding:16px;margin-top:12px}
+@media(min-width:740px){.grid{grid-template-columns:repeat(4,1fr)}.checkgrid{grid-template-columns:repeat(3,1fr)}.heroGrid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:520px){h1{font-size:42px}.tagline{font-size:18px}.hero{border-radius:28px;padding:26px 18px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="hero"><h1>Jeanettes Swim Coach</h1><p>Version 5 · Garmin Race Planner, pace-styrede træningsture, programgenerator og teknikdatabase.</p></div>
+<header class="hero">
+  <div class="logo">🌊 SwimBetter V7</div>
+  <h1>SwimBetter</h1>
+  <p class="tagline">Find dit flow. Svøm bedre og nå dine mål.</p>
+  <div class="byline">Udviklet af Jeanette Demuth · Swim Coach</div>
+  <div class="heroGrid">
+    <div class="heroTile"><strong>🏊 Pool</strong><span>Teknik, pace og struktur</span></div>
+    <div class="heroTile"><strong>🌊 Open Water</strong><span>Race, flow og udholdenhed</span></div>
+    <div class="heroTile"><strong>❄️ Ice</strong><span>Frekvens, kulde og kontrol</span></div>
+    <div class="heroTile"><strong>📈 Progression</strong><span>Tests og udvikling over tid</span></div>
+  </div>
+</header>
 
 <div class="tabs">
-<button class="tab active" onclick="showTab('pace',this)">🏊 Pace</button>
-<button class="tab" onclick="showTab('race',this)">⌚ Race Planner</button>
+<button class="tab active" onclick="showTab('home',this)">🏠 Home</button>
+<button class="tab" onclick="showTab('profile',this)">👤 Profil</button>
 <button class="tab" onclick="showTab('program',this)">📅 Program</button>
+<button class="tab" onclick="showTab('race',this)">⌚ Race</button>
+<button class="tab" onclick="showTab('progress',this)">📈 Test</button>
 <button class="tab" onclick="showTab('tech',this)">📚 Teknik</button>
-<button class="tab" onclick="showTab('coach',this)">👥 Coach Setup</button>
+<button class="tab" onclick="showTab('ice',this)">❄️ Ice</button>
+<button class="tab" onclick="showTab('pace',this)">🏊 Pace</button>
 </div>
 
-<section id="pace" class="page active">
-<div class="card"><h2>Beregn pace pr. 100 m</h2>
-<label>Total distance i meter</label><input id="distance1" inputmode="numeric" type="number" placeholder="Fx 3000">
-<label>Total tid</label><input id="time1" inputmode="text" type="text" placeholder="Fx 52:34 eller 1.05.20">
-<div class="hint">Du kan bruge : . , mellemrum - eller ;</div>
-<button onclick="calculatePace()">Beregn pace</button><div class="result" id="paceResult">Resultat vises her</div></div>
-
-<div class="card"><h2>Beregn samlet tid ud fra pace</h2>
-<label>Distance i meter</label><input id="distance2" inputmode="numeric" type="number" placeholder="Fx 5000">
-<label>Pace pr. 100 m</label><input id="pace2" inputmode="text" type="text" placeholder="Fx 1:35">
-<button onclick="calculateTotalTime()">Beregn samlet tid</button><div class="result" id="timeResult">Resultat vises her</div></div>
-
-<div class="card"><h2>Splittider ud fra pace</h2>
-<label>Pace pr. 100 m</label><input id="splitPace" inputmode="text" type="text" placeholder="Fx 1:35">
-<button onclick="calculateSplits()">Beregn splittider</button><div class="grid" id="splitResult"></div></div>
+<section id="home" class="page active">
+<div class="card">
+<h2>Velkommen til SwimBetter</h2>
+<p>SwimBetter hjælper svømmere med at udvikle teknik, finde flow og træne målrettet mod personlige mål. Appen er bygget omkring progression, mening og individuel tilpasning.</p>
+<div class="grid">
+<div class="tile"><strong>Mission</strong><span>Find dit flow</span></div>
+<div class="tile"><strong>Metode</strong><span>Lær → Omsæt → Integrér → Præstér</span></div>
+<div class="tile"><strong>Coach</strong><span>Personligt fokus</span></div>
+<div class="tile"><strong>Race</strong><span>Garmin-klare lapplaner</span></div>
+</div>
+<div class="note"><strong>SwimBetter-filosofi:</strong> Svøm bedre før du bare svømmer hårdere. Teknik, flow og progression skal hænge sammen.</div>
+</div>
 </section>
 
-<section id="race" class="page">
-<div class="card"><h2>Garmin Race Planner</h2>
-<div class="hint">Viser hvad hver lap skal svømmes på, så planen kan følges efter Garmin-bip.</div>
-<label>Mål-distance</label><select id="raceDistance"></select>
-<label>Måltid</label><input id="raceGoalTime" inputmode="text" type="text" placeholder="Fx 1:15:00">
-<label>Garmin lap-visning</label><select id="lapSize"><option value="500" selected>500 m lapper - typisk åbent vand</option><option value="100">100 m lapper - typisk bassin</option></select>
-<label>Race-strategi</label><select id="raceStrategy"><option value="even">Jævnt pace</option><option value="negative">Negativ split - roligere start, stærkere afslutning</option><option value="progressive">Progressivt hurtigere - hver lap lidt hurtigere</option></select>
-<button onclick="makeRacePlan()">Lav Garmin raceplan</button>
-<div class="result" id="raceSummary">Raceplan vises her</div><div id="strategyText" class="note" style="display:none"></div><div class="tablewrap" id="raceTable"></div></div>
+<section id="profile" class="page">
+<div class="card">
+<h2>Min profil</h2>
+<label>Navn</label><input id="profileName" placeholder="Fx Mona">
+<label>Niveau</label><select id="level"><option>Begynder</option><option>Let øvet</option><option selected>Øvet</option><option>Erfaren</option><option>Konkurrencesvømmer</option></select>
+<label>Primær disciplin</label><select id="discipline"><option>Pool</option><option>Open Water</option><option>Ice</option><option>Kombineret</option></select>
+<label>Aktuel pace pr. 100 m</label><input id="profilePace" placeholder="Fx 1:50">
+<label>Målpace pr. 100 m</label><input placeholder="Fx 1:40">
+<label>Mål-distance</label><select id="profileDistance"></select>
+<label>Noter</label><textarea placeholder="Fx fokus på catch, pacekontrol og bedre kropsposition"></textarea>
+<div class="note">Senere kan profilen gemmes lokalt og bruges til at generere programmer automatisk.</div>
+</div>
 </section>
 
 <section id="program" class="page">
-<div class="card"><h2>Programgenerator</h2>
+<div class="card">
+<h2>Programgenerator 2.0</h2>
 <label>Mål-distance</label><select id="goalDistance"></select>
-<label>Aktuel pace pr. 100 m</label><input id="currentPace" inputmode="text" type="text" placeholder="Fx 1:50">
+<label>Aktuel pace pr. 100 m</label><input id="currentPace" inputmode="text" placeholder="Fx 1:50">
 <label>Antal svømmepas pr. uge</label><select id="swimSessions"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select>
 <label>Lokation</label><select id="location"><option value="25">25 m bassin</option><option value="50">50 m bassin</option><option value="44">44 m bane</option><option value="lake">Åbent vand - sø</option><option value="sea">Åbent vand - hav</option></select>
-<label>Varighed pr. svømmepas</label><select id="duration"><option value="45">45 min</option><option value="60" selected>60 min</option><option value="75">75 min</option><option value="90">90 min</option><option value="120">120 min</option></select>
-<label>Pace-styret træningstur</label><select id="paceRide"><option value="auto" selected>Auto - vælg ud fra programmet</option><option value="easy">Rolig tur</option><option value="steady">Stabil tur</option><option value="tempo">Tempo-tur</option><option value="race">Race pace-tur</option><option value="progressive">Progressiv tur</option></select>
+<label>Varighed pr. pas</label><select id="duration"><option value="45">45 min</option><option value="60" selected>60 min</option><option value="75">75 min</option><option value="90">90 min</option><option value="120">120 min</option></select>
 <h3>Udviklingsområder</h3><div class="checkgrid" id="challengeBox"></div>
 <h3>Anden træning</h3><div class="checkgrid" id="extraBox"></div>
-<button onclick="generateProgram()">Lav 4-ugers program</button><div id="programOutput"></div></div>
+<button onclick="generateProgram()">Lav 4-ugers program</button>
+<div id="programOutput"></div>
+</div>
+</section>
+
+<section id="race" class="page">
+<div class="card">
+<h2>Garmin Race Planner</h2>
+<div class="hint">Viser hvad hver lap skal svømmes på, så planen kan følges efter Garmin-bip.</div>
+<label>Mål-distance</label><select id="raceDistance"></select>
+<label>Måltid</label><input id="raceGoalTime" inputmode="text" placeholder="Fx 1:15:00">
+<label>Garmin lap-visning</label><select id="lapSize"><option value="500" selected>500 m lapper - åbent vand</option><option value="100">100 m lapper - bassin</option><option value="1000">1000 m lapper - langdistance</option></select>
+<label>Race-strategi</label><select id="raceStrategy"><option value="even">Jævnt pace</option><option value="negative">Negativ split</option><option value="progressive">Progressivt hurtigere</option></select>
+<button onclick="makeRacePlan()">Lav Garmin raceplan</button>
+<div class="result" id="raceSummary">Raceplan vises her</div><div id="strategyText" class="note" style="display:none"></div><div class="tablewrap" id="raceTable"></div>
+</div>
+</section>
+
+<section id="progress" class="page">
+<div class="card">
+<h2>Test & Progress</h2>
+<label>Testtype</label><select id="testType"><option value="500">500 m test</option><option value="1000">1000 m test</option><option value="1500">1500 m test</option><option value="3000">3000 m test</option><option value="ow500">Open Water 500 m</option><option value="ow1000">Open Water 1000 m</option></select>
+<label>Testtid</label><input id="testTime" placeholder="Fx 18:30">
+<label>Forrige testtid</label><input id="previousTestTime" placeholder="Fx 19:05">
+<button onclick="calculateTest()">Beregn udvikling</button>
+<div class="result" id="testResult">Testresultat vises her</div>
+<div class="note"><strong>Næste version:</strong> gem testhistorik og vis udviklingsgraf for pace og distance over tid.</div>
+</div>
 </section>
 
 <section id="tech" class="page">
-<div class="card"><h2>Teknikdatabase</h2><p class="small">Tryk på en øvelse for intro, formål, fokus og forslag til serie.</p><div id="techLibrary"></div></div>
+<div class="card"><h2>Teknikbibliotek</h2><p class="small">Tryk på en øvelse for intro, formål, fokus og forslag til serie.</p><div id="techLibrary"></div></div>
 </section>
 
-<section id="coach" class="page">
-<div class="card"><h2>Coach Setup</h2>
-<label>Svømmerens navn</label><input placeholder="Fx Mona">
-<label>Primært mål</label><select><option>1000-3000 m</option><option>5 km</option><option>10 km</option><option>Teknik</option><option>Race pace</option></select>
-<label>Coach-noter</label><textarea placeholder="Fx stærk udholdenhed, skal arbejde med catch og pacekontrol"></textarea>
-<div class="note">Næste version: gem svømmere, PB'er, mål, udviklingsområder og programmer lokalt på mobilen.</div></div>
+<section id="ice" class="page">
+<div class="card">
+<h2>SwimBetter ICE · Beta</h2>
+<div class="icebox">
+<p><strong>Ice-modulet er første version.</strong> Det skal senere udvikles med kuldehistorik, DM-raceplan, frekvensstrategi og testforløb.</p>
+</div>
+<label>Ice-distance</label><select id="iceDistance"><option>25 m</option><option>50 m</option><option>100 m</option><option>200 m</option><option>450 m</option><option>1000 m</option></select>
+<label>Vandtemperatur</label><select><option>0-1°C</option><option>1-2°C</option><option>2-3°C</option><option>3-5°C</option><option>5-8°C</option></select>
+<h3>Ice-fokus</h3>
+<div class="checkgrid">
+<label class="check"><input type="checkbox">Høj frekvens</label>
+<label class="check"><input type="checkbox">Minimal glide</label>
+<label class="check"><input type="checkbox">Vejrtrækningskontrol</label>
+<label class="check"><input type="checkbox">Kuldetolerance</label>
+<label class="check"><input type="checkbox">Startstrategi</label>
+<label class="check"><input type="checkbox">Efteropvarmning</label>
+</div>
+<button onclick="makeIcePlan()">Lav Ice-fokus</button>
+<div class="result" id="iceResult">Ice-plan vises her</div>
+</div>
+</section>
+
+<section id="pace" class="page">
+<div class="card"><h2>Pace Tools</h2><label>Total distance i meter</label><input id="distance1" inputmode="numeric" type="number" placeholder="Fx 3000"><label>Total tid</label><input id="time1" inputmode="text" placeholder="Fx 52:34"><button onclick="calculatePace()">Beregn pace</button><div class="result" id="paceResult">Resultat vises her</div></div>
+<div class="card"><h2>Tid ud fra pace</h2><label>Distance i meter</label><input id="distance2" inputmode="numeric" type="number" placeholder="Fx 5000"><label>Pace pr. 100 m</label><input id="pace2" inputmode="text" placeholder="Fx 1:35"><button onclick="calculateTotalTime()">Beregn samlet tid</button><div class="result" id="timeResult">Resultat vises her</div></div>
+<div class="card"><h2>Splittider</h2><label>Pace pr. 100 m</label><input id="splitPace" inputmode="text" placeholder="Fx 1:35"><button onclick="calculateSplits()">Beregn splits</button><div class="grid" id="splitResult"></div></div>
 </section>
 </div>
 
-<div class="modal" id="modal"><div class="modalbox"><div id="modalContent"></div><button class="close" onclick="closeModal()">Luk</button></div></div>
+<div class="modal" id="modal"><div class="modalbox"><div id="modalContent"></div><button class="close secondary" onclick="closeModal()">Luk</button></div></div>
 
 <script>
 const distances=[1000,2000,3000,4000,5000,6000,7000,8000,9000,10000];
 const challenges=["Synkende ben","Catch","Rotation","Stroke rate","Vejrtrækning","Pacekontrol","Udholdenhed","Skuldertræthed","Open water sighting","Høj albue","Vandføling","Balance i vandet"];
 const extras=["Styrke","Yoga/mobilitet","Løb","Cykling","Gåtur"];
-
 const exercises={
 "6-1-6 / sidekick":{purpose:"Forbedrer balance, rotation og kropsposition.",how:"6 benspark på siden, 1 armtag, roter til modsat side og gentag.",focus:"Hofter højt, rolig vejrtrækning, lang krop.",series:"6-8 x 25 m eller 6 x 50 m."},
 "Snorkelcrawl":{purpose:"Fjerner vejrtrækningen som forstyrrende faktor.",how:"Svøm crawl med frontsnorkel og fokusér på kropslinje, catch og rytme.",focus:"Rolig hovedposition, stabil krop, rent catch.",series:"6-10 x 50 m."},
-"Streamline kick på ryg":{purpose:"Styrker kropslinje, core og høj benposition.",how:"Spark på ryggen med armene strakt over hovedet.",focus:"Navle og hofter op, lang krop.",series:"6-8 x 25 m."},
 "Head Lead Balance":{purpose:"Forbedrer balance og kropsposition.",how:"Arme langs siden, let benspark, styr kroppen med hovedets position.",focus:"Afslappet nakke, høje hofter, rolig linje.",series:"6 x 25 m."},
 "Front scull":{purpose:"Forbedrer vandføling og starten af catch.",how:"Armene foran kroppen, små sculling-bevægelser med hænder og underarme.",focus:"Mærk trykket på underarmen.",series:"6-8 x 25 m."},
 "Dog paddle":{purpose:"Træner tidlig catch og høj albue under vandet.",how:"Svøm crawl uden overføring; armene bliver under vand.",focus:"Underarm som padle, tryk bagud.",series:"6 x 25 m eller 4 x 50 m."},
@@ -136,23 +186,9 @@ const exercises={
 "Bøjevendinger":{purpose:"Træner vendinger omkring bøjer i åbent vand.",how:"Svøm mod markering, drej tæt omkring punktet og accelerér ud.",focus:"Orientering og rytmeskift.",series:"8-12 vendinger."},
 "Drafting":{purpose:"Lærer at spare energi bag eller ved siden af en anden svømmer.",how:"Svøm bag fødder eller ved hofte på en makker.",focus:"Afstand, timing og ro.",series:"6-10 x 2 min."}
 };
+const tech={"Synkende ben":["6-1-6 / sidekick","Snorkelcrawl","Head Lead Balance"],"Catch":["Front scull","Dog paddle","EVF drill","Catch-up","Fist drill","En arms crawl"],"Rotation":["6-3-6","En arms crawl","FIVO","Zip drill"],"Stroke rate":["Tempo trainer-serier","Progressive 50s","Polo crawl"],"Pacekontrol":["Broken distance","Progressive 50s","Tempo trainer-serier"],"Open water sighting":["Tarzan crawl","Polo crawl","Bøjevendinger","Drafting"],"Høj albue":["FIVO","Zip drill","EVF drill"],"Vandføling":["Front scull","Fist drill","Dog paddle"],"Balance i vandet":["Head Lead Balance","6-1-6 / sidekick","6-3-6"]};
 
-const tech={
-"Synkende ben":["6-1-6 / sidekick","Snorkelcrawl","Streamline kick på ryg","Head Lead Balance"],
-"Catch":["Front scull","Dog paddle","EVF drill","Catch-up","Fist drill","En arms crawl"],
-"Rotation":["6-3-6","En arms crawl","FIVO","Zip drill"],
-"Stroke rate":["Tempo trainer-serier","Progressive 50s","Polo crawl"],
-"Vejrtrækning":["Snorkelcrawl","6-1-6 / sidekick","En arms crawl"],
-"Pacekontrol":["Broken distance","Progressive 50s","Tempo trainer-serier"],
-"Udholdenhed":["Broken distance","Tempo trainer-serier","Progressive 50s"],
-"Skuldertræthed":["Snorkelcrawl","FIVO","Zip drill"],
-"Open water sighting":["Tarzan crawl","Polo crawl","Bøjevendinger","Drafting"],
-"Høj albue":["FIVO","Zip drill","EVF drill"],
-"Vandføling":["Front scull","Fist drill","Dog paddle"],
-"Balance i vandet":["Head Lead Balance","6-1-6 / sidekick","6-3-6"]
-};
-
-function init(){document.getElementById("raceDistance").innerHTML=distances.map(d=>"<option value='"+d+"'>"+labelDist(d)+"</option>").join("");document.getElementById("goalDistance").innerHTML=document.getElementById("raceDistance").innerHTML;document.getElementById("challengeBox").innerHTML=challenges.map(c=>'<label class="check"><input type="checkbox" value="'+c+'" class="challenge">'+c+'</label>').join("");document.getElementById("extraBox").innerHTML=extras.map(e=>'<label class="check"><input type="checkbox" value="'+e+'" class="extra">'+e+'</label>').join("");renderLibrary()}
+function init(){let opts=distances.map(d=>"<option value='"+d+"'>"+labelDist(d)+"</option>").join("");["profileDistance","goalDistance","raceDistance"].forEach(id=>document.getElementById(id).innerHTML=opts);document.getElementById("challengeBox").innerHTML=challenges.map(c=>'<label class="check"><input type="checkbox" value="'+c+'" class="challenge">'+c+'</label>').join("");document.getElementById("extraBox").innerHTML=extras.map(e=>'<label class="check"><input type="checkbox" value="'+e+'" class="extra">'+e+'</label>').join("");renderLibrary()}
 function showTab(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));btn.classList.add("active")}
 function cleanTimeString(str){return String(str||"").trim().replace(/[.,;\-\s]+/g,":").replace(/:+/g,":").replace(/^:|:$/g,"")}
 function parseTimeToSeconds(timeStr){const c=cleanTimeString(timeStr);if(!c)return null;const p=c.split(":").map(Number);if(p.some(Number.isNaN))return null;if(p.length===1)return p[0]*60;if(p.length===2)return p[0]*60+p[1];if(p.length===3)return p[0]*3600+p[1]*60+p[2];return null}
@@ -162,70 +198,17 @@ function calculatePace(){const d=+document.getElementById("distance1").value,t=p
 function calculateTotalTime(){const d=+document.getElementById("distance2").value,p=parseTimeToSeconds(document.getElementById("pace2").value),r=document.getElementById("timeResult");if(!d||!p){r.innerText="Indtast distance og pace";return}r.innerText="Samlet tid: "+formatTime(p*(d/100))}
 function tiles(ds,pace,id){const out=document.getElementById(id);if(!pace){out.innerHTML='<div class="result" style="grid-column:1/-1;">Indtast pace</div>';return}out.innerHTML=ds.map(d=>'<div class="tile"><strong>'+labelDist(d)+'</strong><span>'+formatTime(pace*(d/100))+'</span></div>').join("")}
 function calculateSplits(){tiles([50,100,200,400,500,800,1000,1500,2000,3000,5000,10000],parseTimeToSeconds(document.getElementById("splitPace").value),"splitResult")}
-
-function lapFactor(strategy, lapIndex, totalLaps){
- if(strategy==="even") return 1;
- const progress = totalLaps===1 ? 0.5 : lapIndex/(totalLaps-1);
- if(strategy==="negative") return 1.04 - progress*0.08;
- if(strategy==="progressive") return 1.06 - progress*0.12;
- return 1;
-}
-function makeRacePlan(){
- const distance=+document.getElementById("raceDistance").value,total=parseTimeToSeconds(document.getElementById("raceGoalTime").value),lap=+document.getElementById("lapSize").value,strategy=document.getElementById("raceStrategy").value;
- if(!total){document.getElementById("raceSummary").innerText="Indtast måltid";return}
- const baseLapTime=total/(distance/lap);
- const laps=Math.ceil(distance/lap);
- let raw=[],sum=0;
- for(let i=0;i<laps;i++){let thisLap=Math.min(lap,distance-i*lap);let t=baseLapTime*(thisLap/lap)*lapFactor(strategy,i,laps);raw.push({dist:thisLap,time:t});sum+=t}
- const correction=total/sum;let cum=0;
- let rows=raw.map((r,i)=>{let lapTime=r.time*correction;cum+=lapTime;let meter=Math.min((i+1)*lap,distance);let pace100=lapTime/(r.dist/100);return {lap:i+1,meter,lapTime,cum,pace100}})
- const pace=total/(distance/100);
- document.getElementById("raceSummary").innerText="Målpace: "+formatTime(pace)+" pr. 100 m · Sluttid: "+formatTime(total);
- const text={even:"Jævnt pace: hver lap svømmes i samme tempo.",negative:"Negativ split: første del svømmes kontrolleret, sidste del hurtigere. God til lange races.",progressive:"Progressivt: hver lap bliver gradvist hurtigere. God til kontrolleret opbygning."}[strategy];
- document.getElementById("strategyText").style.display="block";document.getElementById("strategyText").innerText=text;
- document.getElementById("raceTable").innerHTML='<table><thead><tr><th>Lap</th><th>Distance</th><th>Lap-tid</th><th>Samlet tid</th><th>Pace/100</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r.lap+'</td><td>'+r.meter+' m</td><td><strong>'+formatTime(r.lapTime)+'</strong></td><td>'+formatTime(r.cum)+'</td><td>'+formatTime(r.pace100)+'</td></tr>').join("")+'</tbody></table>';
-}
-
+function lapFactor(strategy,i,n){if(strategy==="even")return 1;const p=n===1?.5:i/(n-1);if(strategy==="negative")return 1.04-p*.08;if(strategy==="progressive")return 1.06-p*.12;return 1}
+function makeRacePlan(){const distance=+document.getElementById("raceDistance").value,total=parseTimeToSeconds(document.getElementById("raceGoalTime").value),lap=+document.getElementById("lapSize").value,strategy=document.getElementById("raceStrategy").value;if(!total){document.getElementById("raceSummary").innerText="Indtast måltid";return}const base=total/(distance/lap),laps=Math.ceil(distance/lap);let raw=[],sum=0;for(let i=0;i<laps;i++){let dist=Math.min(lap,distance-i*lap),t=base*(dist/lap)*lapFactor(strategy,i,laps);raw.push({dist,time:t});sum+=t}let corr=total/sum,cum=0;let rows=raw.map((r,i)=>{let lt=r.time*corr;cum+=lt;return{lap:i+1,meter:Math.min((i+1)*lap,distance),lapTime:lt,cum,pace:lt/(r.dist/100)}});document.getElementById("raceSummary").innerText="Målpace: "+formatTime(total/(distance/100))+" pr. 100 m · Sluttid: "+formatTime(total);document.getElementById("strategyText").style.display="block";document.getElementById("strategyText").innerText={even:"Jævnt pace: hver lap svømmes i samme tempo.",negative:"Negativ split: kontrolleret start og stærkere afslutning.",progressive:"Progressivt: hver lap bliver gradvist hurtigere."}[strategy];document.getElementById("raceTable").innerHTML='<table><thead><tr><th>Lap</th><th>Distance</th><th>Lap-tid</th><th>Samlet tid</th><th>Pace/100</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r.lap+'</td><td>'+r.meter+' m</td><td><strong>'+formatTime(r.lapTime)+'</strong></td><td>'+formatTime(r.cum)+'</td><td>'+formatTime(r.pace)+'</td></tr>').join("")+'</tbody></table>'}
 function locationText(v){return v==="44"?"44 m bane":v==="lake"?"åbent vand - sø":v==="sea"?"åbent vand - hav":v+" m bassin"}
-function estimateDistance(pace,duration,location){if(!pace)return null;let swimSeconds=duration*60*0.78;let meters=(swimSeconds/pace)*100;if(location==="44")meters*=0.94;if(location==="lake"||location==="sea")meters*=0.9;return Math.round(meters/100)*100}
-function trainingRideText(type,pace,location){
- if(!pace) return "Indtast aktuel pace for at få pace-styret træningstur.";
- let easy=pace*1.12, steady=pace*1.06, tempo=pace*1.0, race=pace*0.96;
- if(type==="auto") type="steady";
- if(type==="easy") return "Rolig tur: svøm i ca. "+formatTime(easy)+"-"+formatTime(steady)+" pr. 100 m. Fokus på rytme og lav belastning.";
- if(type==="steady") return "Stabil tur: svøm i ca. "+formatTime(steady)+" pr. 100 m. Fokus på jævnt tempo og økonomi.";
- if(type==="tempo") return "Tempo-tur: blokke omkring "+formatTime(tempo)+" pr. 100 m. Fokus på kontrolleret hårdt arbejde.";
- if(type==="race") return "Race pace-tur: korte eller moderate blokke omkring "+formatTime(race)+"-"+formatTime(tempo)+" pr. 100 m.";
- if(type==="progressive") return "Progressiv tur: start omkring "+formatTime(easy)+" og slut omkring "+formatTime(tempo)+" pr. 100 m.";
-}
-function generateProgram(){
- const goal=+document.getElementById("goalDistance").value,sessions=+document.getElementById("swimSessions").value,loc=document.getElementById("location").value,dur=+document.getElementById("duration").value,pace=parseTimeToSeconds(document.getElementById("currentPace").value),ride=document.getElementById("paceRide").value;
- const ch=[...document.querySelectorAll(".challenge:checked")].map(x=>x.value),ex=[...document.querySelectorAll(".extra:checked")].map(x=>x.value);
- let focus=ch.length?ch:["Pacekontrol","Udholdenhed"],est=estimateDistance(pace,dur,loc),locName=locationText(loc);
- let days=["Teknik + kontrol","Tempo/CSS","Langt aerobt pas","Race pace","Let teknik/restitution","Fart og korte intervaller"].slice(0,sessions);
- let html='<div class="program"><h3>4-ugers programforslag</h3><span class="badge">'+labelDist(goal)+'</span><span class="badge">'+sessions+' svømmepas/uge</span><span class="badge">'+locName+'</span><span class="badge">'+dur+' min</span>';
- if(est)html+='<span class="badge">ca. '+est+' m pr. pas</span>';
- html+='<p><strong>Fokusområder:</strong> '+focus.join(", ")+'</p>';
- html+='<div class="note"><strong>Pace-styret træningstur:</strong> '+trainingRideText(ride,pace,loc)+'</div>';
- if(loc==="44")html+='<div class="note"><strong>44 m bane:</strong> Programmet tager højde for svær vending, ingen fraskub og mere konstant arbejde. Brug broer: 5 broer = 220 m, 10 broer = 440 m, 23 broer = ca. 1000 m.</div>';
- days.forEach((d,i)=>{
-   let drills=focus.flatMap(f=>tech[f]||[]).slice(0,4).join(" · ");
-   let main=(loc==="lake"||loc==="sea")?(i===1?"10-12 x 1-2 min tempo / 30 sek roligt":i===2?"Lang rolig tur 40-75 min med stabil rytme":"Teknik i åbent vand + korte fartblokke"):(i===1?"8-12 x 100/200 m tempo med kort pause":i===2?"3-5 x 400 m roligt/moderat":"Teknikblok + 6-10 x 50 m kontrolleret");
-   if(loc==="44")main+=" · omsæt til broer à 44 m";
-   html+='<div class="day"><strong>Pas '+(i+1)+': '+d+'</strong>Teknik: '+drills+'<br>Hovedserie: '+main+'</div>';
- });
- if(ex.length)html+='<div class="note"><strong>Supplerende træning:</strong> '+ex.join(", ")+' placeres på lette dage eller efter korte svømmepas.</div>';
- html+='<div class="note"><strong>Hvis ugen ændres:</strong> Ved færre pas behold 1) teknik, 2) tempo/CSS, 3) langtur. Skær først let/restitution væk.</div></div>';
- document.getElementById("programOutput").innerHTML=html;
-}
-
+function estimateDistance(pace,duration,location){if(!pace)return null;let meters=((duration*60*.78)/pace)*100;if(location==="44")meters*=.94;if(location==="lake"||location==="sea")meters*=.9;return Math.round(meters/100)*100}
+function generateProgram(){const goal=+document.getElementById("goalDistance").value,sessions=+document.getElementById("swimSessions").value,loc=document.getElementById("location").value,dur=+document.getElementById("duration").value,pace=parseTimeToSeconds(document.getElementById("currentPace").value);const ch=[...document.querySelectorAll(".challenge:checked")].map(x=>x.value),ex=[...document.querySelectorAll(".extra:checked")].map(x=>x.value);let focus=ch.length?ch:["Pacekontrol","Udholdenhed"],est=estimateDistance(pace,dur,loc),locName=locationText(loc);let weeks=[["Lær","Find ro i teknikken og mærk vandet"],["Omsæt","Brug teknikken i almindelig crawl"],["Integrér","Hold teknikken når tempoet stiger"],["Præstér","Brug teknikken i race pace og test"]];let html='<div class="program"><h3>4-ugers SwimBetter-program</h3><span class="badge">'+labelDist(goal)+'</span><span class="badge">'+sessions+' pas/uge</span><span class="badge">'+locName+'</span><span class="badge">'+dur+' min</span>';if(est)html+='<span class="badge">ca. '+est+' m pr. pas</span>';html+='<p><strong>Fokus:</strong> '+focus.join(", ")+'</p>';if(loc==="44")html+='<div class="note"><strong>44 m bane:</strong> tager højde for svær vending, ingen fraskub og konstant arbejde. 5 broer = 220 m, 10 broer = 440 m, 23 broer = ca. 1000 m.</div>';weeks.forEach((w,wi)=>{html+='<div class="week"><h3>Uge '+(wi+1)+' – '+w[0]+' 🌊</h3><p><strong>Ugens mission:</strong> '+w[1]+'.</p>';for(let i=0;i<sessions;i++){let drills=focus.flatMap(f=>tech[f]||[]).slice((i+wi)%3,(i+wi)%3+3).join(" · ")||"FIVO · SS · Progressive 50s";let main=i===0?"300 fri · teknikblok 200-400 m · 6-10 x 100 m kontrolleret · 50 løs · 4 x 25 sprint · 100 afsvøm":i===1?"300 fri · teknik + SS · 5-8 x 200 m tempo · 50 løs · 6 x 25 sprint · 150 afsvøm":"300 fri · kort teknikblok · lang stabil serie · 50 løs · progressiv afslutning · 100 afsvøm";html+='<div class="day"><strong>Pas '+(i+1)+'</strong>Teknik: '+drills+'<br>'+main+'</div>'}html+='</div>'});if(ex.length)html+='<div class="note"><strong>Supplerende træning:</strong> '+ex.join(", ")+' placeres på lette dage eller efter korte svømmepas.</div>';html+='</div>';document.getElementById("programOutput").innerHTML=html}
+function calculateTest(){const type=document.getElementById("testType").value.replace("ow",""),t=parseTimeToSeconds(document.getElementById("testTime").value),p=parseTimeToSeconds(document.getElementById("previousTestTime").value),r=document.getElementById("testResult");if(!t){r.innerText="Indtast testtid";return}let pace=t/(+type/100),txt="Pace: "+formatTime(pace)+" pr. 100 m";if(p){let diff=p-t,perc=diff/p*100;txt+=" · Udvikling: "+(diff>=0?"+":"")+Math.round(diff)+" sek. ("+perc.toFixed(1).replace(".",",")+"%)"}r.innerText=txt}
+function makeIcePlan(){document.getElementById("iceResult").innerText="Ice-fokus: høj frekvens, minimal glide, rolig vejrtrækning og sikker efteropvarmning. Brug korte, kontrollerede pas og registrér temperatur, distance og reaktion."}
 function renderLibrary(){document.getElementById("techLibrary").innerHTML=Object.entries(tech).map(([k,v])=>'<div class="libcard"><h3>'+k+'</h3>'+v.map(x=>'<button class="exercise" onclick="openExercise(&quot;'+x+'&quot;)">'+x+'</button>').join("")+'</div>').join("")}
 function openExercise(name){const e=exercises[name];if(!e)return;document.getElementById("modalContent").innerHTML='<h2>'+name+'</h2><p><strong>Formål:</strong> '+e.purpose+'</p><p><strong>Sådan udføres den:</strong> '+e.how+'</p><p><strong>Fokus:</strong> '+e.focus+'</p><p><strong>Forslag til serie:</strong> '+e.series+'</p><p class="small">Videolink kan tilføjes senere.</p>';document.getElementById("modal").style.display="block"}
 function closeModal(){document.getElementById("modal").style.display="none"}
 init();
-["distance1","time1"].forEach(id=>document.getElementById(id).addEventListener("input",calculatePace));
-["distance2","pace2"].forEach(id=>document.getElementById(id).addEventListener("input",calculateTotalTime));
-document.getElementById("splitPace").addEventListener("input",calculateSplits);
 </script>
 </body>
 </html>

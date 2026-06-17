@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SwimBetter Prestige v1.2</title>
+<title>SwimBetter Prestige v1.3 TEST</title>
 <style>
 :root{--deep:#061f33;--navy:#082f49;--blue:#075985;--sea:#0f766e;--bg:#f3f8fa;--card:#fbfefe;--line:#d8edf4;--text:#103848;--muted:#6d8490}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(180deg,#eaf6fa,#f6fafb 45%,#fff);color:var(--text)}
@@ -40,11 +40,19 @@ label{display:block;margin-top:14px;font-weight:800;color:var(--deep)}input,sele
 .modal{display:none;position:fixed;inset:0;background:rgba(6,31,51,.72);padding:18px;z-index:100}.modalbox{background:white;max-width:780px;margin:38px auto;border-radius:28px;padding:26px;max-height:86vh;overflow:auto;box-shadow:0 30px 90px rgba(0,0,0,.26)}.close{background:var(--deep)!important}
 @media(min-width:780px){.menuBtn{display:none}.menu{display:flex!important;flex-wrap:wrap;margin-top:0}.menu button{width:auto}.philosophy{grid-template-columns:repeat(4,1fr)}.checkgrid{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:560px){.app{padding:8px 8px 80px}.hero{min-height:610px;border-radius:26px;padding:32px 22px}.brand{top:30px;left:22px}.cta{width:100%;text-align:center}.card{padding:21px;border-radius:23px}.checkgrid,.grid{grid-template-columns:1fr}.plain{text-align:left;padding-left:8px;padding-right:8px}}
+
+.versionBadge{
+  position:fixed;right:12px;bottom:12px;z-index:9999;
+  background:#061f33;color:white;border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;padding:9px 13px;font-size:13px;font-weight:850;
+  box-shadow:0 8px 24px rgba(6,31,51,.22)
+}
+
 </style>
 </head>
 <body>
 <div class="app">
-<header class="hero"><div class="brand">SwimBetter</div><div class="heroCenter"><h1>SwimBetter</h1><div class="tagline">Find dit flow, optimer din svømmeøkonomi, og nå dine mål.</div><div class="mantra">Målet er ikke at svømme mere, men at svømme bedre.</div><div class="ctaRow"><button class="cta" onclick="go('program')">Mit program</button><button class="cta secondary" onclick="go('tech')">Teknikøvelser</button></div></div></header>
+<header class="hero"><div class="brand">SwimBetter · v1.3 TEST</div><div class="heroCenter"><h1>SwimBetter</h1><div class="tagline">Find dit flow, optimer din svømmeøkonomi, og nå dine mål.</div><div class="mantra">Målet er ikke at svømme mere, men at svømme bedre.</div><div class="ctaRow"><button class="cta" onclick="go('program')">Mit program</button><button class="cta secondary" onclick="go('tech')">Teknikøvelser</button></div></div></header>
 <nav class="navWrap"><button class="menuBtn" onclick="toggleMenu()">Menu</button><div id="menu" class="menu"><button class="active" onclick="go('home',this)">Home</button><button onclick="go('program',this)">Programmer</button><button onclick="go('tech',this)">Teknikøvelser</button><button onclick="go('fundamentals',this)">Fundamentals</button><button onclick="go('pace',this)">Pace & Zoner</button><button onclick="go('race',this)">Race Planner</button><button onclick="go('ice',this)">Ice</button><button onclick="go('profile',this)">Min Profil</button></div></nav>
 
 <section id="home" class="page active"><div class="plain"><div class="eyebrow">SwimBetter filosofien</div><h2>God teknik og flow skaber optimal svømmeøkonomi.</h2><p class="lead">Optimal svømmeøkonomi skaber grundlaget for bedre tempo, større udholdenhed, mere overskud og bedre præstationer.</p><div class="philosophy"><div class="philoItem"><strong>Flow</strong><span>Find rytmen, balancen og følelsen i vandet.</span></div><div class="philoItem"><strong>Teknik</strong><span>Forstå svømningen og mærk forskellen.</span></div><div class="philoItem"><strong>Svømmeøkonomi</strong><span>Brug energien mere effektivt.</span></div><div class="philoItem"><strong>Mål</strong><span>Træn med mening mod dit mål.</span></div></div></div></section>
@@ -200,5 +208,6 @@ function factor(st,i,n){if(st=="even")return 1;let p=n==1?.5:i/(n-1);return st==
 function racePlan(){let d=+raceDist.value,t=sec(raceTime.value),l=+lap.value,st=strategy.value;if(!t){raceRes.innerText="Indtast måltid";return}let n=Math.ceil(d/l),base=t/(d/l),raw=[],sum=0;for(let i=0;i<n;i++){let dist=Math.min(l,d-i*l),x=base*(dist/l)*factor(st,i,n);raw.push([dist,x]);sum+=x}let corr=t/sum,cum=0;raceRes.innerText="Måltempo: "+fmt(t/(d/100))+" pr. 100 m";raceTable.innerHTML='<table><tr><th>Lap</th><th>Distance</th><th>Lap-tid</th><th>Samlet</th><th>Tempo/100</th></tr>'+raw.map((r,i)=>{let lt=r[1]*corr;cum+=lt;return '<tr><td>'+(i+1)+'</td><td>'+Math.min((i+1)*l,d)+' m</td><td><b>'+fmt(lt)+'</b></td><td>'+fmt(cum)+'</td><td>'+fmt(lt/(r[0]/100))+'</td></tr>'}).join("")+'</table>'}
 init();autoRefreshProgram();
 </script>
+<div class="versionBadge">v1.3 TEST</div>
 </body>
 </html>

@@ -10,7 +10,13 @@
 .app{max-width:1180px;margin:auto;padding:14px 14px 90px}
 .hero{min-height:640px;border-radius:34px;position:relative;overflow:hidden;color:white;padding:44px 32px;display:flex;align-items:center;background:linear-gradient(180deg,rgba(6,31,51,.06),rgba(6,31,51,.88)),linear-gradient(135deg,#0ea5e9,#0f766e 52%,#061f33);box-shadow:0 24px 70px rgba(6,31,51,.2)}
 .hero:before{content:"";position:absolute;left:-10%;right:-10%;bottom:-20px;height:270px;opacity:.88;background:radial-gradient(190px 74px at 160px 110px,rgba(255,255,255,.34),transparent 72%),radial-gradient(240px 92px at 480px 135px,rgba(255,255,255,.22),transparent 70%),radial-gradient(210px 80px at 830px 100px,rgba(255,255,255,.26),transparent 70%),linear-gradient(180deg,transparent,rgba(255,255,255,.22));animation:water 9s ease-in-out infinite alternate}
-@keyframes water{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+@keyframes water{from{transform:translateX(-34px) translateY(0)}to{transform:translateX(34px) translateY(-8px)}}
+.hero:after{content:"";position:absolute;inset:-20%;opacity:.18;background:
+radial-gradient(circle at 20% 30%,rgba(255,255,255,.30),transparent 18%),
+radial-gradient(circle at 70% 60%,rgba(255,255,255,.22),transparent 20%),
+linear-gradient(115deg,transparent 0%,rgba(255,255,255,.16) 45%,transparent 70%);
+animation:waterLight 14s ease-in-out infinite alternate;pointer-events:none}
+@keyframes waterLight{from{transform:translateX(-18px) rotate(0deg)}to{transform:translateX(18px) rotate(2deg)}}
 .brand{position:absolute;top:38px;left:32px;z-index:2;font-size:15px;letter-spacing:.05em;font-weight:800;opacity:.92}
 .heroCenter{position:relative;z-index:2;max-width:960px}
 h1{font-size:clamp(58px,9vw,108px);line-height:.92;letter-spacing:-.06em;margin:0 0 34px;font-weight:850}
@@ -39,13 +45,44 @@ label{display:block;margin-top:14px;font-weight:800;color:var(--deep)}input,sele
 <body>
 <div class="app">
 <header class="hero"><div class="brand">SwimBetter</div><div class="heroCenter"><h1>SwimBetter</h1><div class="tagline">Find dit flow, optimer din svømmeøkonomi, og nå dine mål.</div><div class="mantra">Målet er ikke at svømme mere, men at svømme bedre.</div><div class="ctaRow"><button class="cta" onclick="go('program')">Mit program</button><button class="cta secondary" onclick="go('tech')">Teknikøvelser</button></div></div></header>
-<nav class="navWrap"><button class="menuBtn" onclick="toggleMenu()">Menu</button><div id="menu" class="menu"><button class="active" onclick="go('home',this)">Home</button><button onclick="go('program',this)">Programmer</button><button onclick="go('tech',this)">Teknikøvelser</button><button onclick="go('pace',this)">Pace & Zoner</button><button onclick="go('race',this)">Race Planner</button><button onclick="go('ice',this)">Ice</button><button onclick="go('profile',this)">Min Profil</button></div></nav>
+<nav class="navWrap"><button class="menuBtn" onclick="toggleMenu()">Menu</button><div id="menu" class="menu"><button class="active" onclick="go('home',this)">Home</button><button onclick="go('program',this)">Programmer</button><button onclick="go('tech',this)">Teknikøvelser</button><button onclick="go('fundamentals',this)">Fundamentals</button><button onclick="go('pace',this)">Pace & Zoner</button><button onclick="go('race',this)">Race Planner</button><button onclick="go('ice',this)">Ice</button><button onclick="go('profile',this)">Min Profil</button></div></nav>
 
 <section id="home" class="page active"><div class="plain"><div class="eyebrow">SwimBetter filosofien</div><h2>God teknik og flow skaber optimal svømmeøkonomi.</h2><p class="lead">Optimal svømmeøkonomi skaber grundlaget for bedre tempo, større udholdenhed, mere overskud og bedre præstationer.</p><div class="philosophy"><div class="philoItem"><strong>Flow</strong><span>Find rytmen, balancen og følelsen i vandet.</span></div><div class="philoItem"><strong>Teknik</strong><span>Forstå svømningen og mærk forskellen.</span></div><div class="philoItem"><strong>Svømmeøkonomi</strong><span>Brug energien mere effektivt.</span></div><div class="philoItem"><strong>Mål</strong><span>Træn med mening mod dit mål.</span></div></div></div></section>
 
 <section id="program" class="page"><div class="section"><div class="card"><div class="eyebrow">Ugeplan</div><h2>Programmer</h2><p>Programmerne tager afsæt i niveau, tempo, mål, lokation og det du ønsker at forbedre.</p><label>Niveau</label><select id="level"><option>Begynder</option><option>Let øvet</option><option selected>Øvet</option><option>Erfaren</option><option>Konkurrencesvømmer</option></select><label>Mål-distance</label><select id="goal"></select><label>Aktuel tempo pr. 100 m</label><input id="curPace" placeholder="Fx 1:50"><label>Hvad vil du forbedre?</label><select id="improve"><option>Teknik</option><option>Svømmeøkonomi</option><option>Tempo</option><option selected>Udholdenhed</option><option>Open Water</option><option>Race Pace</option><option>Issvømning</option></select><label>Antal svømmepas pr. uge</label><select id="sessions"><option>2</option><option selected>3</option><option>4</option></select><label>Lokation</label><select id="loc"><option value="25">25 m bassin</option><option value="50">50 m bassin</option><option value="44">44 m bane</option><option value="lake">Åbent vand - sø</option><option value="sea">Åbent vand - hav</option></select><label>Varighed pr. pas</label><select id="dur"><option value="45">45 min</option><option value="60" selected>60 min</option><option value="75">75 min</option><option value="90">90 min</option></select><h3>Teknisk fokus</h3><div class="checkgrid" id="focusBox"></div><button class="primary" onclick="makeProgram()">Lav ugeplan</button><div id="programOut"></div></div></div></section>
 
 <section id="tech" class="page"><div class="section"><div class="plain" style="padding-top:20px"><div class="eyebrow">Teknikunivers</div><h2>Teknikøvelser</h2><p class="lead">Forstå svømningen. Mærk forskellen. Brug øvelserne til at skabe bedre flow og svømmeøkonomi.</p></div><div id="techLib"></div></div></section>
+
+
+<section id="fundamentals" class="page">
+  <div class="section">
+    <div class="plain" style="padding-top:20px">
+      <div class="eyebrow">SwimBetter Fundamentals</div>
+      <h2>Position, balance og svømmeøkonomi</h2>
+      <p class="lead">God crawl starter med kroppens position i vandet. Når position, rotation og catch arbejder sammen, skabes sund svømmeøkonomi.</p>
+    </div>
+    <div class="card">
+      <h3>1. Position kommer først</h3>
+      <p>En god crawl starter med en lang og rolig kropslinje. Målet er at reducere modstand og bevare streamline.</p>
+      <h3>2. Hovedet styrer balancen</h3>
+      <p>Kig ned mod bunden, hold nakken afslappet og undgå at løfte hovedet. Når hovedet løftes, synker hofter og ben.</p>
+      <h3>3. Vejrtrækning uden løft</h3>
+      <p>Ved vejrtrækning roterer kroppen, og hovedet følger med. Kun ét brilleglas kommer over vandet.</p>
+      <h3>4. Stabil core og streamline</h3>
+      <p>Hold kroppen let spændt i core, så over- og underkrop arbejder sammen som én lang enhed.</p>
+      <h3>5. Skulder og hofte arbejder sammen</h3>
+      <p>Rotationen kommer fra kroppen. Når hofte og skulder arbejder sammen, bliver armtaget længere, catch bedre og fremdriften mere effektiv.</p>
+      <h3>6. Isætning i skulderbredde</h3>
+      <p>Hånden sættes i vandet med langefingeren først i skulderbredde. Undgå at krydse ind foran hovedet.</p>
+      <h3>7. Catch med høj albue</h3>
+      <p>Forestil dig, at albuen forsigtigt løftes op i en elastik, mens underarmen falder på plads og får fat i vandet.</p>
+      <h3>8. Ben skaber balance</h3>
+      <p>På dette niveau bruges benene primært til balance og stabilitet. Synkende ben fungerer som en bremse.</p>
+      <h3>9. Strakt vrist – ballerinafod</h3>
+      <p>Hold vristen afslappet og strakt, så foden følger vandets strømning i stedet for at bremse.</p>
+    </div>
+  </div>
+</section>
 
 <section id="pace" class="page"><div class="section"><div class="card"><h2>Pace & Zoner</h2><label>Aktuel tempo pr. 100 m</label><input id="zonePace" placeholder="Fx 1:50"><button class="primary" onclick="showZones()">Vis mine træningszoner</button><div class="tablewrap" id="zoneTable"></div></div><div class="card"><h2>Pace Tools</h2><label>Distance</label><input id="d1" type="number" placeholder="Fx 3000"><label>Tid</label><input id="t1" placeholder="Fx 52:34"><button class="primary" onclick="calcPace()">Beregn pace</button><div class="result" id="paceRes">Resultat vises her</div></div></div></section>
 
@@ -58,7 +95,7 @@ label{display:block;margin-top:14px;font-weight:800;color:var(--deep)}input,sele
 
 <script>
 const distances=[1000,2000,3000,4000,5000,6000,7000,8000,9000,10000],focuses=["Synkende ben","Catch","Rotation","Timing & flow","Stroke rate","Pacekontrol","Open water sighting","Balance i vandet"];
-const cats={"Balance & kropsposition":["Head Lead Balance","Side Kick","6-1-6 / sidekick","6-3-6","6-5-6","Javelin Drill","Torpedo Kick","Snorkelcrawl"],"Catch & vandføling":["Front scull","Mid Scull","Back Scull","Dog paddle","Tidlig høj albue (EVF)","Fist drill","Catch-Up","En arms crawl"],"Rotation & flow":["Side Kick","6-3-6","Javelin Drill","En arms crawl","Catch-Up","Corkscrew Drill","Rotation Build","FIVO","Zip drill"],"Open Water":["Tarzan crawl","Polo crawl","Sight & Rotate","Bøjevendinger","Drafting"],"Frekvens & tempo":["Tempo trainer-serier","Progressive 50s","Broken distance"]};
+const cats={"Balance & kropsposition":["Head Lead Balance","Side Kick","6-1-6 / sidekick","6-3-6","6-5-6","Javelin Drill","Torpedo Kick","Snorkelcrawl"],"Catch & vandføling":["Front scull","Mid Scull","Back Scull","Dog paddle","Catch med høj albue","Fist drill","Catch-Up","En arms crawl"],"Rotation & flow":["Side Kick","6-3-6","Javelin Drill","En arms crawl","Catch-Up","Rotation 360°","Rotation Build","FIVO","Zip drill"],"Open Water":["Tarzan crawl","Polo crawl","Sight & Rotate","Bøjevendinger","Drafting"],"Frekvens & tempo":["Tempo trainer-serier","Progressive 50s","Broken distance"]};
 const ex={
 "Catch-Up":["Forbedre timing, balance og længde i armtaget.","Den ene arm bliver strakt fremme, mens den anden gennemfører hele armtaget. Først når den arbejdende hånd fanger den fremstrakte hånd, starter næste armtag.","Bedre stræk fremad, mere ro, bedre balance og tydeligere rotation.","For lang pause foran, overglide, tab af fremdrift eller for lav frekvens.","4 x 75 m: 50 m Catch-Up + 25 m crawl.","Balance, rotation, timing og flow."],
 "FIVO":["Udvikle høj albue og afslappet armføring.","Svøm crawl og lad fingerspidserne følge vandoverfladen i overføringen. Albuen holdes højere end hånden.","Lettere recovery, bedre rotation og mindre spænding i skulderen.","Hånden løftes for højt, albuen falder, eller rotationen mangler.","4 x 75 m: 50 m FIVO + 25 m crawl.","Høj albue, rotation og svømmeøkonomi."],
@@ -66,7 +103,7 @@ const ex={
 "Mid Scull":["Forbedre vandføling midt i armtaget.","Lig med armene under skuldrene og lav små kontrollerede sculling-bevægelser.","Tryk under kroppen uden at presse nedad.","For store bevægelser eller tab af kropsposition.","4 x 25 m.","Catch og stabilt træk."],
 "Back Scull":["Forbedre afslutningen af armtaget.","Arbejd med hænderne tættere på hofterne og mærk trykket bagud.","Tydeligere afslutning på armtaget.","Overstrækning eller spændte skuldre.","4 x 25 m.","Vandføling og afslutning af armtag."],
 "Dog paddle":["Træne tidlig catch og høj albue under vandet.","Svøm crawl uden normal overføring. Armene bliver under vandet og arbejder med tydeligt catch foran kroppen.","At underarmen får fat i vandet tidligt.","At trække for langt bagud eller miste kropslinjen.","4 x 25 m eller 4 x 50 m for øvede.","Catch og tidlig vertikal underarm."],
-"Tidlig høj albue (EVF)":["Træne høj albue i catch.","Overdriv den tidlige lodrette underarm i catch-fasen.","Mere tryk på underarmen og bedre fremdrift.","Albuen falder eller hånden presses nedad.","4-6 x 25 m.","Catch og fremdrift."],
+"Catch med høj albue":["Træne høj albue i catch.","Overdriv den tidlige lodrette underarm i catch-fasen.","Mere tryk på underarmen og bedre fremdrift.","Albuen falder eller hånden presses nedad.","4-6 x 25 m.","Catch og fremdrift."],
 "Fist drill":["Forbedre catch og underarmens rolle.","Svøm crawl med knyttede næver.","At underarmen arbejder mere aktivt.","For korte armtag eller spændte skuldre.","4 x 50 m fist + 4 x 50 m crawl.","Catch og vandføling."],
 "En arms crawl":["Forbedre catch, rotation og fremdrift side for side.","Svøm crawl med én arm ad gangen.","Bedre rotation og tydeligere fremdrift på den arbejdende side.","Manglende rotation eller overkrydsning.","6 x 50 m.","Catch, rotation og balance."],
 "Side Kick":["Lære stabil sideposition og bedre balance i rotationen.","Lig på siden med nederste arm fremme og øverste arm langs kroppen.","At kroppen bæres af vandet.","Hovedet løftes eller hofterne falder.","4-6 x 50 m.","Balance og rotation."],
@@ -78,37 +115,81 @@ const ex={
 "Torpedo Kick":["Træne strømlining og kropslinje.","Spark i streamline-position med armene strakt over hovedet.","At kroppen glider lettere gennem vandet.","For hårdt benspark eller svaj i ryggen.","6 x 25 m.","Kropsposition og synkende ben."],
 "Snorkelcrawl":["Fjerne vejrtrækningen som forstyrrende faktor.","Svøm crawl med frontsnorkel og roligt hoved.","Mere ro i kroppen og tydeligere catch.","At kigge frem eller spænde i nakken.","6 x 50 m.","Kropsposition og teknik."],
 "Zip drill":["Kontrol af albueføring og rotation.","Træk tommelfingeren op langs siden fra hofte til armhule.","Højere albue og bedre rotation.","For spændt skulder eller for lille rotation.","4 x 75 m: 50 m Zip + 25 m crawl.","Høj albue og recovery."],
-"Corkscrew Drill":["Træne kropskontrol og rotation.","Svøm og roter gradvist rundt om kroppens længdeakse.","Kontrol over core og kropslinje.","Mister retning eller løfter hovedet.","4 x 25 m.","Avanceret rotation."],
+"Rotation 360°":["Træne kropskontrol og rotation.","Svøm og roter gradvist rundt om kroppens længdeakse.","Kontrol over core og kropslinje.","Mister retning eller løfter hovedet.","4 x 25 m.","Avanceret rotation."],
 "Rotation Build":["Gøre svømmeren bevidst om rotation.","25 m minimal rotation, 25 m normal, 25 m aktiv, 25 m crawl.","Hvordan rotation påvirker længde og flow.","Overrotation eller spændte skuldre.","4 x 100 m.","Teknikforståelse og rotation."],
 "Tarzan crawl":["Træne open water sighting.","Svøm crawl med hovedet over vandet og kig fremad.","Bedre orientering og retningskontrol.","For højt hoved eller ben der synker.","6 x 25 m.","Open Water."],
 "Polo crawl":["Kombinere tempo, styrke og orientering.","Svøm crawl med hovedet oppe og konstant fremadsyn.","Højere frekvens og bedre kontrol.","Hovedet for højt eller kroppen bliver tung.","6 x 25 m.","Open Water og frekvens."],
-"Sight & Rotate":["Kombinere sighting med rotation og vejrtrækning.","Kig kort fremad hvert 6.-10. armtag og find hurtigt tilbage i rytmen.","Orientering uden at rytmen falder fra hinanden.","Hovedet for højt eller for længe oppe.","6 x 100 m.","Open Water og navigation."],
+"Sight & Rotate":["Kombinere sighting med rotation og vejrtrækning.","Kig kort fremad hvert 6.-10. armtag og find hurtigt tilbage i rytmen.","Orientering uden at rytmen falder fra hinanden.","Hovedet for højt eller for længe oppe.","5 x 100 m.","Open Water og navigation."],
 "Bøjevendinger":["Træne vendinger omkring bøjer.","Svøm mod en markering, drej tæt og accelerér ud af vendingen.","Bedre timing og rytmeskift.","At dreje for bredt eller stoppe op.","8-12 vendinger.","Open Water konkurrence."],
 "Drafting":["Spare energi bag eller ved siden af en anden svømmer.","Svøm bag fødderne eller ved hoften på en makker.","Lavere energiforbrug og lettere tempo.","For langt væk, for tæt på eller mistet rytme.","6-10 x 2 min.","Open Water og svømmeøkonomi."],
 "Tempo trainer-serier":["Udvikle stroke rate og pacekontrol.","Hold fast frekvens uden at miste teknik.","Stabil rytme og kontrolleret tempo.","At jagte frekvens på bekostning af teknik.","10 x 100 m eller 20 x 50 m.","Tempo og raceforberedelse."],
 "Progressive 50s":["Træne kontrolleret tempostigning.","Hver 50’er svømmes hurtigere eller bygges progressivt.","Kontrol over tempo uden at miste flow.","For hård start.","8-12 x 50 m.","Tempo og afslutning."],
 "Broken distance":["Træne race pace uden at svømme hele distancen samlet.","Del måldistancen op med korte pauser og hold måltempo.","Race pace bliver mere kontrollerbart.","For hurtig start eller for lange pauser.","5 x 200 m på 1000 m race pace.","Race Pace og pacing."]
 };
+
+// SwimBetter v1.3 exercise overrides
+Object.assign(ex,{
+"Catch med høj albue":["Skabe et effektivt catch med høj albue og mere tryk på underarmen.","Sæt hånden i vandet med langefingeren først i skulderbredde. Lad albuen blive høj, mens underarmen falder på plads og får fat i vandet.","Forestil dig, at albuen bliver løftet let op i en elastik, mens underarmen finder trykket i vandet.","Albuen falder, hånden presses nedad, armen bliver stiv eller isætningen krydser ind foran hovedet.","4-6 x 25 m + 4 x 50 m crawl med samme følelse.","Catch, fremdrift og svømmeøkonomi."],
+"Rotation 360°":["Træne kropskontrol, balance og rotation omkring kroppens længdeakse.","Svøm langsomt fremad og lad kroppen rotere kontrolleret rundt om sin egen akse. Hovedet holdes statisk og må ikke falde med ned i rotationen.","Mærk at kroppen roterer som én samlet enhed omkring et roligt hoved.","Hovedet følger med rundt, kroppen knækker på midten, eller rotationen sker kun i skuldrene.","4 x 25 m roligt og kontrolleret.","Rotation, balance, core og streamline."],
+"Catch-Up":["Forbedre timing, balance, rotation og længde i armtaget.","Den ene arm bliver strakt fremme, mens den anden gennemfører hele armtaget. Hånden sættes i med langefingeren først i skulderbredde. Først når den arbejdende hånd møder den fremstrakte hånd, starter næste armtag.","Bedre stræk fremad, roligere svømning, bedre balance og en tydelig fornemmelse af skulderbredde i isætningen.","For lang pause foran, overglide, krydsning foran hovedet, tommelfinger først eller for smal isætning.","4 x 75 m: 50 m Catch-Up + 25 m crawl med samme isætning.","Balance, timing, rotation og svømmeøkonomi."]
+});
+
+
+function calcMetersFromSession(htmlText){
+  let total=0;
+  const re=/(\d+)\s*x\s*(\d+)\s*m|(\d+)\s*m/g;
+  let m;
+  while((m=re.exec(htmlText))!==null){
+    if(m[1]&&m[2]) total+=parseInt(m[1])*parseInt(m[2]);
+    else if(m[3]) total+=parseInt(m[3]);
+  }
+  return total;
+}
+
 function init(){let opts=distances.map(d=>"<option value='"+d+"'>"+label(d)+"</option>").join("");goal.innerHTML=opts;raceDist.innerHTML=opts;focusBox.innerHTML=focuses.map(f=>'<label class="check"><input type="checkbox" value="'+f+'">'+f+'</label>').join("");renderTech()}
+function autoRefreshProgram(){
+  const ids=["level","goal","curPace","improve","sessions","loc","dur"];
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){
+      el.addEventListener("change",()=>{if(programOut.innerHTML.trim()) makeProgram();});
+      el.addEventListener("input",()=>{if(programOut.innerHTML.trim()) makeProgram();});
+    }
+  });
+  document.querySelectorAll("#focusBox input").forEach(el=>{
+    el.addEventListener("change",()=>{if(programOut.innerHTML.trim()) makeProgram();});
+  });
+}
+
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function renderTech(){techLib.innerHTML=Object.entries(cats).map(([k,v])=>`<details class="category"><summary>${esc(k)}</summary><div class="inner"><div class="animationSlot">Animation kommer senere · første version er tekstbaseret instruktion</div>${v.map(x=>`<button class="exercise" onclick='showEx(${JSON.stringify(x)})'>${esc(x)}</button>`).join("")}</div></details>`).join("")}
 function toggleMenu(){menu.classList.toggle("open")}
-function go(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");menu.classList.remove("open");scrollTo({top:0,behavior:"smooth"})}
+function go(id,btn){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+if(btn)btn.classList.add("active");
+menu.classList.remove("open");
+document.querySelectorAll("details").forEach(d=>d.open=false);
+if(typeof modal!=="undefined") modal.style.display="none";
+scrollTo({top:0,behavior:"smooth"})
+})}
 function clean(s){return String(s||"").trim().replace(/[.,;\-\s]+/g,":").replace(/:+/g,":").replace(/^:|:$/g,"")}
 function sec(s){let c=clean(s);if(!c)return null;let p=c.split(":").map(Number);if(p.some(Number.isNaN))return null;if(p.length==1)return p[0]*60;if(p.length==2)return p[0]*60+p[1];return p[0]*3600+p[1]*60+p[2]}
 function fmt(x){x=Math.round(x);let h=Math.floor(x/3600),m=Math.floor((x%3600)/60),s=x%60;return h?h+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"):m+":"+String(s).padStart(2,"0")}
 function label(d){return d>=1000?(d/1000).toString().replace(".",",")+" km":d+" m"}
-function paceRange(base,lo,hi){return base?fmt(base*lo)+"-"+fmt(base*hi)+" /100 m":"Efter følelse"}
-function makeProgram(){let p=sec(curPace.value),location=loc.value,imp=improve.value,n=+sessions.value;let roles=location=="lake"||location=="sea"?["Open Water teknik","Udholdenhed","Temposkift & Race Pace","Fast finish"]:["Teknik & svømmeøkonomi","Udholdenhed","Tempo / Race Pace","Progressivt"];let html='<div class="week"><h3>Ugeplan</h3><span class="badge">'+level.value+'</span><span class="badge">'+label(+goal.value)+'</span><span class="badge">'+loc.options[loc.selectedIndex].text+'</span><span class="badge">'+imp+'</span>';for(let i=0;i<n;i++)html+=sessionHTML(i+1,roles[i%roles.length],p,location,imp);programOut.innerHTML=html+'</div>'}
-function sessionHTML(no,role,p,location,imp){if(location=="lake"||location=="sea")return owSession(no,role,p,location);return poolSession(no,role,p,location)}
-function poolSession(no,role,p,location){if(role.includes("Teknik"))return '<div class="session"><h3>Pas '+no+' · Teknik & svømmeøkonomi · ca. 2500 m</h3>'+blk('300 m','Indsvømning','Rolig crawl')+blk('4 x 75 m','50 m Catch-Up + 25 m crawl','Pause 20 sek. · Overfør følelsen til almindelig crawl','Catch-Up')+blk('6 x 100 m','Z2 Aerob · '+paceRange(p,1.07,1.15),'Pause 15 sek. · Fokus: lang kropslinje og roligt catch')+blk('4 x 50 m','Progressivt','Pause 20 sek. · Byg tempo uden at miste teknik')+blk('200 m','Afsvømning','Roligt')+'</div>';
-if(role.includes("Udholdenhed"))return '<div class="session"><h3>Pas '+no+' · Udholdenhed · ca. 2900 m</h3>'+blk('400 m','Indsvømning','Roligt')+blk('3 x 400 m','Z2 Aerob · '+paceRange(p,1.05,1.13),'Pause 30 sek. · Stabilt tempo')+blk('4 x 200 m','Z3 Tempo · '+paceRange(p,.98,1.04),'Pause 20 sek. · Hold teknikken')+blk('4 x 50 m','Progressivt','Pause 20 sek.')+blk('300 m','Afsvømning','Roligt')+'</div>';
+function paceRange(base,lo,hi){return base?fmt(base*lo)+"-"+fmt(base*hi)+" /100 m":"Zone og tempo"}
+function makeProgram(){let p=sec(curPace.value),location=loc.value,imp=improve.value,n=+sessions.value;let isOW=(location==="lake"||location==="sea");
+let roles=isOW?["Open Water teknik","Udholdenhed","Temposkift & Race Pace","Fast finish"]:["Teknik & svømmeøkonomi","Udholdenhed","Tempo / Race Pace","Progressivt"];let html='<div class="week"><h3>Ugeplan</h3><span class="badge">'+level.value+'</span><span class="badge">'+label(+goal.value)+'</span><span class="badge">'+loc.options[loc.selectedIndex].text+'</span><span class="badge">'+(isOW?'Open Water-program':'Bassin-program')+'</span><span class="badge">'+imp+'</span>';for(let i=0;i<n;i++)html+=sessionHTML(i+1,roles[i%roles.length],p,location,imp);programOut.innerHTML=html+'</div>'}
+function sessionHTML(no,role,p,location,imp){let isOW=(location==="lake"||location==="sea"); if(isOW)return owSession(no,role,p,location);return poolSession(no,role,p,location)}
+function poolSession(no,role,p,location){if(role.includes("Teknik"))return '<div class="session"><h3>Pas '+no+' · Teknik & svømmeøkonomi · ca. 2500 m</h3>'+blk('300 m','Indsvømning','Rolig crawl')+blk('4 x 75 m','50 m Catch-Up + 25 m crawl','Pause 20 sek. · Overfør følelsen til almindelig crawl','Catch-Up')+blk('5 x 100 m','Z2 Aerob · '+paceRange(p,1.07,1.15),'Pause 15 sek. · Fokus: lang kropslinje og roligt catch')+blk('4 x 50 m','Progressivt','Pause 20 sek. · Byg tempo uden at miste teknik')+blk('200 m','Afsvømning','Roligt')+'</div>';
+if(role.includes("Udholdenhed"))return '<div class="session"><h3>Pas '+no+' · Udholdenhed · ca. 2900 m</h3>'+blk('400 m','Indsvømning','Roligt')+blk('3 x 500 m','Z2 Aerob · '+paceRange(p,1.05,1.13),'Pause 30 sek. · Stabilt tempo')+blk('4 x 200 m','Z3 Tempo · '+paceRange(p,.98,1.04),'Pause 20 sek. · Hold teknikken')+blk('4 x 50 m','Progressivt','Pause 20 sek.')+blk('300 m','Afsvømning','Roligt')+'</div>';
 if(role.includes("Progressivt"))return '<div class="session"><h3>Pas '+no+' · Progressivt · ca. 2600 m</h3>'+blk('300 m','Indsvømning','Roligt')+blk('6 x 50 m','Teknikvalg: FIVO eller Side Kick','Pause 20 sek.','FIVO')+blk('4 x 200 m','Progressivt fra Z2 til Z4','Pause 25 sek. · Start roligt, afslut kontrolleret hårdt')+blk('8 x 50 m','Z4 Threshold · '+paceRange(p,.95,1.00),'Pause 20 sek.')+blk('200 m','Afsvømning','Roligt')+'</div>';
 return '<div class="session"><h3>Pas '+no+' · Tempo / Race Pace · ca. 2600 m</h3>'+blk('300 m','Indsvømning','Roligt')+blk('4 x 50 m','Fist Drill + crawl','Pause 20 sek.','Fist drill')+blk('8 x 100 m','Z3-Z4 Tempo · '+paceRange(p,.98,1.05),'Pause 15 sek. · Stabilt kontrolleret tempo')+blk('6 x 25 m','Sprint / høj frekvens','Pause 30 sek.')+blk('4 x 100 m','Race Pace · '+paceRange(p,.95,1.00),'Pause 20 sek.')+blk('250 m','Afsvømning','Roligt')+'</div>'}
-function owSession(no,role,p,location){if(role.includes("teknik"))return '<div class="session"><h3>Pas '+no+' · Open Water teknik · ca. 2200 m</h3>'+blk('400 m','Rolig indsvømning','Find rytme og vejrtrækning')+blk('6 x 50 m','Sight & Rotate','Pause 20 sek. · Kig kort frem og find rytmen igen','Sight & Rotate')+blk('3 x 400 m','Z2 Aerob · '+paceRange(p,1.06,1.15),'Pause 45 sek. · Sighting hver 8.-10. armtag')+blk('4 x 50 m','Polo crawl / orientering','Pause 30 sek.','Polo crawl')+blk('300 m','Roligt hjem','Afslut med flow')+'</div>';
-if(role.includes("Udholdenhed"))return '<div class="session"><h3>Pas '+no+' · Open Water udholdenhed · ca. 3000 m</h3>'+blk('500 m','Roligt flow','Z2 · '+paceRange(p,1.06,1.16))+blk('3 x 600 m','Stabilt tempo','Pause 60 sek. · Sighting hver 10. armtag · Z2-Z3')+blk('4 x 100 m','Fast finish','Sidste 25 m øges i tempo')+blk('300 m','Roligt','Afsvømning')+'</div>';
-if(role.includes("Fast"))return '<div class="session"><h3>Pas '+no+' · Fast finish · ca. 2500 m</h3>'+blk('400 m','Indsvømning','Roligt')+blk('4 x 400 m','300 m stabilt + 100 m progressivt','Pause 45 sek. · Z2 til Z4')+blk('4 x 100 m','Race Pace · '+paceRange(p,.96,1.02),'Pause 30 sek.')+blk('100 m','Roligt','Afslut')+'</div>';
-return '<div class="session"><h3>Pas '+no+' · Temposkift & Race Pace · ca. 2500 m</h3>'+blk('400 m','Rolig indsvømning','Find flow')+blk('3 x 500 m','Temposkift','Pause 60 sek. · 100 stabil + 50 acceleration + 250 race pace + 50 acceleration + 50 stabil')+blk('6 x 50 m','Sighting + acceleration','Pause 30 sek.')+blk('300 m','Roligt','Afslut')+'</div>'}
+function owSession(no,role,p,location){if(role.includes("teknik"))return '<div class="session"><h3>Pas '+no+' · Open Water teknik · ca. 2200 m</h3>'+blk('400 m','Rolig indsvømning','Find rytme og vejrtrækning')+blk('6 x 50 m','Sight & Rotate','Pause 20 sek. · Kig kort frem og find rytmen igen','Sight & Rotate')+blk('3 x 500 m','Z2 Aerob · '+paceRange(p,1.06,1.15),'Pause 45 sek. · Sighting hver 8.-10. armtag')+blk('4 x 50 m','Polo crawl / orientering','Pause 30 sek.','Polo crawl')+blk('300 m','Roligt hjem','Afslut med flow')+'</div>';
+if(role.includes("Udholdenhed"))return '<div class="session"><h3>Pas '+no+' · Open Water udholdenhed · ca. 3000 m</h3>'+blk('500 m','Roligt flow','Z2 · '+paceRange(p,1.06,1.16))+blk('3 x 500 m','Stabilt tempo','Pause 60 sek. · Sighting hver 10. armtag · Z2-Z3')+blk('4 x 100 m','Fast finish','Sidste 25 m øges i tempo')+blk('300 m','Roligt','Afsvømning')+'</div>';
+if(role.includes("Fast"))return '<div class="session"><h3>Pas '+no+' · Fast finish · ca. 2500 m</h3>'+blk('400 m','Indsvømning','Roligt')+blk('3 x 500 m','300 m stabilt + 100 m progressivt','Pause 45 sek. · Z2 til Z4')+blk('4 x 100 m','Race Pace · '+paceRange(p,.96,1.02),'Pause 30 sek.')+blk('100 m','Roligt','Afslut')+'</div>';
+return '<div class="session"><h3>Pas '+no+' · Temposkift & Race Pace · ca. 2500 m</h3>'+blk('400 m','Rolig indsvømning','Find flow')+blk('3 x 500 m','Temposkift','Pause 60 sek. · Svøm efter zone, følelse og formål. Garmin-laps bruges som efterkontrol: stabilt flow + korte accelerationer')+blk('6 x 50 m','Sighting + acceleration','Pause 30 sek.')+blk('300 m','Roligt','Afslut')+'</div>'}
 function blk(a,b,c,exname){return `<div class="block"><span class="meters">${esc(a)}</span> · ${esc(b)}<span class="meta">${esc(c||"")}</span>${exname?`<button class="inlineBtn" onclick='showEx(${JSON.stringify(exname)})'>Se øvelse</button>`:""}</div>`}
 function showEx(x){let d=ex[x]||["Teknikøvelse i SwimBetter.","Udføres kontrolleret med fokus på kvalitet.","Mærk hvad øvelsen ændrer i din svømning.","Undgå at forcere bevægelsen.","4-6 x 25 m eller 4 x 50 m afhængigt af niveau.","Teknik, flow og svømmeøkonomi."];modalText.innerHTML='<h2>'+x+'</h2><div class="animationSlot">Animation kommer senere</div><p><strong>Formål:</strong><br>'+d[0]+'</p><p><strong>Sådan udføres øvelsen:</strong><br>'+d[1]+'</p><p><strong>Det skal du mærke:</strong><br>'+d[2]+'</p><p><strong>Typiske fejl:</strong><br>'+d[3]+'</p><p><strong>Forslag til serie:</strong><br>'+d[4]+'</p><p><strong>God til:</strong><br>'+d[5]+'</p>';modal.style.display="block"}
 function closeModal(){modal.style.display="none"}
@@ -117,7 +198,7 @@ const zoneDefs=[["Recovery","Z1","1.22","1.35","Restitution og ro"],["Aerob","Z2
 function showZones(){let p=sec(zonePace.value||curPace.value);if(!p){zoneTable.innerHTML='<div class="result">Indtast tempo først</div>';return}zoneTable.innerHTML='<table><tr><th>Zone</th><th>Tempo</th><th>Formål</th></tr>'+zoneDefs.map(z=>'<tr><td><b>'+z[1]+' '+z[0]+'</b></td><td>'+fmt(p*parseFloat(z[2]))+'-'+fmt(p*parseFloat(z[3]))+' /100 m</td><td>'+z[4]+'</td></tr>').join('')+'</table>'}
 function factor(st,i,n){if(st=="even")return 1;let p=n==1?.5:i/(n-1);return st=="negative"?1.04-p*.08:1.06-p*.12}
 function racePlan(){let d=+raceDist.value,t=sec(raceTime.value),l=+lap.value,st=strategy.value;if(!t){raceRes.innerText="Indtast måltid";return}let n=Math.ceil(d/l),base=t/(d/l),raw=[],sum=0;for(let i=0;i<n;i++){let dist=Math.min(l,d-i*l),x=base*(dist/l)*factor(st,i,n);raw.push([dist,x]);sum+=x}let corr=t/sum,cum=0;raceRes.innerText="Måltempo: "+fmt(t/(d/100))+" pr. 100 m";raceTable.innerHTML='<table><tr><th>Lap</th><th>Distance</th><th>Lap-tid</th><th>Samlet</th><th>Tempo/100</th></tr>'+raw.map((r,i)=>{let lt=r[1]*corr;cum+=lt;return '<tr><td>'+(i+1)+'</td><td>'+Math.min((i+1)*l,d)+' m</td><td><b>'+fmt(lt)+'</b></td><td>'+fmt(cum)+'</td><td>'+fmt(lt/(r[0]/100))+'</td></tr>'}).join("")+'</table>'}
-init();
+init();autoRefreshProgram();
 </script>
 </body>
 </html>
